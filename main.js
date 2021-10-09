@@ -1,7 +1,9 @@
 //USANDO EXPRESS
 const express = require('express');
+let moment = require('moment');
 const app = express();
-const PORT = 3100;
+const PORT = 8080;
+let counterVisitas = 0;
 
 const server = app.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${ server.address().port } `);
@@ -10,7 +12,16 @@ const server = app.listen(PORT, () => {
 server.on("error", error => console.log(`Error en servidor ${ error } `))
 
 app.get('/', (req, res) => {
-    res.send({ mensaje: 'Hola Mundo'})
+    res.send(`<h1>Bienvenidos al servidor express</h1>`)      
+})
+
+app.get('/visitas', (req, res) => {
+    counterVisitas++;
+    res.send(`Pagina visitada ${counterVisitas}`);
+})
+
+app.get('/fyh', (req, res) => {    
+    res.send(`fecha ${ moment().format("DD-MM-YYYY HH:MM:SS") }`);
 })
 
 
